@@ -1,7 +1,7 @@
 {
   "name": "ai-coder",
-  "version": "1.0.0",
-  "description": "AI Coder using Gemini API with file editor and live preview",
+  "version": "1.1.0",
+  "description": "AI Coder using Gemini API with file editor and live preview (AI can edit files)",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
