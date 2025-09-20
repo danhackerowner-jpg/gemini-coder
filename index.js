@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // AI endpoint
 app.post("/api/ask", async (req, res) => {
-  const { message } = req.body;
+  const { message, file, code } = req.body;
   if (!message) return res.status(400).json({ error: "No message provided" });
 
   try {
@@ -23,17 +23,18 @@ app.post("/api/ask", async (req, res) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: message }] }]
+          contents: [
+            { role: "system", parts: [{ text: "You are an AI code editor. Modify only the requested file’s code. Respond with ONLY raw updated code." }] },
+            { role: "user", parts: [{ text: `File: ${file}\nCurrent Code:\n${code}\n\nInstruction: ${message}\n\nReturn only updated full code.` }] }
+          ]
         })
       }
     );
 
     const data = await response.json();
-    const aiText =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "⚠️ Error: No response from AI.";
+    const aiCode = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
-    res.json({ reply: aiText });
+    res.json({ newCode: aiCode });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -43,4 +44,4 @@ app.post("/api/ask", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
-        
+          
