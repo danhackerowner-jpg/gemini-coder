@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Coder with Gemini</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="sidebar">
+    <h3>Files</h3>
+    <ul>
+      <li class="active" data-file="index.html">index.html</li>
+      <li data-file="style.css">style.css</li>
+      <li data-file="script.js">script.js</li>
+    </ul>
+  </div>
+  <div id="main">
+    <div id="chat">
+      <div id="conversation"></div>
+      <div id="chat-input">
+        <input type="text" id="userInput" placeholder="Ask AI to edit code...">
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+    <div id="editor">
+      <textarea id="codeEditor"></textarea>
+      <div id="preview"><iframe id="liveFrame"></iframe></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
